@@ -1,6 +1,5 @@
 # 🕸️ Analysis of a Transactional Network
-
-Dashboard ini merupakan aplikasi interaktif berbasis **Streamlit** untuk mengeksplorasi dan memvisualisasikan jaringan transaksi nasabah Bank DKI. Visualisasi dilakukan menggunakan **Network Graph** dan **Sankey Diagram** berdasarkan data transaksi antar CIF atau antar ekosistem (institusi), dengan integrasi langsung ke Hive melalui Spark.
+Dashboard ini merupakan aplikasi interaktif untuk mengeksplorasi dan memvisualisasikan jaringan transaksi. Visualisasi dilakukan menggunakan Network Graph dan Sankey Diagram berdasarkan data transaksi antar personal atau antar institusi
 
 ## 🌐 Visualisasi interaktif:
   - **Network Graph** antar CIF/ekosistem
