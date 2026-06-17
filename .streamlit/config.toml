@@ -1,0 +1,3 @@
+[theme]
+# Paksa light theme, mengabaikan preferensi sistem/OS pengguna.
+base = "light"

@@ -14,6 +14,8 @@ import openai
 import json
 import networkx as nx
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 st.set_page_config(page_title="Transactional Network Analysis", page_icon="🕸️", layout="wide")
 st.title("🕸️ Transactional Network Analysis")
 
@@ -185,8 +187,8 @@ def get_ai_analysis_json(summary_prompt):
 # ------------------- UI & Sidebar -------------------
 @st.cache_data(show_spinner=False)
 def get_available_partitions():
-    # Adjust this path to your file location
-    local_path = r"C:\Users\LENOVO\OneDrive\Desktop\cloudera-hackathon\list_partitions\available_partitions.csv"
+    # Path relatif terhadap lokasi app.py agar portabel antar mesin/folder.
+    local_path = os.path.join(BASE_DIR, "list_partitions", "available_partitions.csv")
     # Check if the file exists
     if not os.path.exists(local_path):
         st.warning(f"File partition list not found at {local_path}")
@@ -223,13 +225,21 @@ with st.sidebar.form("form_filter"):
     selected_month = st.selectbox("Select Month", month_options, key="month")
     load_data = st.form_submit_button("🔄 Load Data")
 
+if not available_ym or selected_year is None or selected_month is None:
+    st.warning(
+        "Tidak ada partisi data yang tersedia. Pastikan "
+        "`list_partitions/available_partitions.csv` ada (berisi kolom `year_month`) "
+        "dan data `data_cache/month=YYYYMM.zip` tersedia di folder project."
+    )
+    st.stop()
+
 selected_ym = int(f"{selected_year}{selected_month:02}")
 
 # ------------------- Load Data -------------------
 @st.cache_data(show_spinner=False)
 def load_data_from_month(ym: int):
-    # Adjust this path to your file location
-    local_zip_file = rf"C:\Users\LENOVO\OneDrive\Desktop\cloudera-hackathon\data_cache\month={ym}.zip"
+    # Path relatif terhadap lokasi app.py agar portabel antar mesin/folder.
+    local_zip_file = os.path.join(BASE_DIR, "data_cache", f"month={ym}.zip")
 
     if not os.path.exists(local_zip_file):
         st.error(f"❌ Zip file not found: {local_zip_file}")
